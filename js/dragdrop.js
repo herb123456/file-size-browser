@@ -47,16 +47,7 @@ class MadeDragAndDrop {
                     return false;
                 }.bind(this));
 
-                let listData = {
-                    path: currPath,
-                    files: this.allFilesData[currPath]
-                };
-                this.render.render(this.fileList, window.fileListTemplate, listData);
-
-                let delData = {
-                    files: this.deleteFilesData["files"]
-                };
-                this.render.render(this.deleteList, window.deleteListTemplate, delData);
+                this.renderList(currPath);
 
                 // console.log(event, ui);
                 $(event.target).css("background-color", "white");
@@ -85,16 +76,46 @@ class MadeDragAndDrop {
                 $(this).css("background-color", "white");
             },
             drop: function (event, ui) {
+                let currPath = $("#currPath").text();
                 let filePath = $(ui.draggable[0]).data("path");
                 let fileName = ui.helper[0].innerText;
 
                 // delete item from deleteFilesData
+                let file = this.deleteFilesData.deleteByName(fileName);
+                if (file !== null) {
+                    // add to allFilesData
+                    this.allFilesData.pushData(filePath, file);
+                }
 
-                // add to allFilesData
+                this.renderList(currPath);
 
                 $(event.target).css("background-color", "white");
             }.bind(this)
         });
+    }
+
+    renderList (currPath) {
+        this.renderFilelist(currPath);
+        this.renderDeleteList();
+    }
+
+    renderFilelist (currPath) {
+        if (currPath === "" || currPath === undefined) {
+            return;
+        }
+
+        let listData = {
+            path: currPath,
+            files: this.allFilesData[currPath]
+        };
+        this.render.render(this.fileList, window.fileListTemplate, listData);
+    }
+
+    renderDeleteList () {
+        let delData = {
+            files: this.deleteFilesData["files"]
+        };
+        this.render.render(this.deleteList, window.deleteListTemplate, delData);
     }
 }
 

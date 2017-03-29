@@ -6,7 +6,7 @@ window.deleteListTemplate = "#delete-list-template";
 
 $(function (){
 
-    let scanDir = "/";
+    let scanDir = "/Users/herb/Desktop/Projects/test";
 
     let fileList = $("#fileList");
 
@@ -98,5 +98,7 @@ $(function (){
         render.render(fileList, fileListTemplate, data);
         // fileList.html(Mustache.render(fileListTemplate, data));
     });
+
+    // delete files
 
 });

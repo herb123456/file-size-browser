@@ -7,6 +7,20 @@ deleteFilesData = {
         this["files"].push(data);
 
         // $(this).trigger("addData", {path: path, data: data})
+    },
+
+    deleteByName: function (name) {
+        let item = null;
+        this["files"] = $.grep(this["files"], function(value) {
+            if (value.name === name) {
+                item = value;
+                return false;
+            }
+
+            return true;
+        });
+
+        return item;
     }
 };
 
