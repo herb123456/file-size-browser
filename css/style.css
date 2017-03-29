@@ -1,0 +1,20 @@
+.dir {
+    cursor: pointer;
+}
+
+.dir .icon {
+    color: #E6CB47;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

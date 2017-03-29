@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="vendor/bootstrap-3.3.7.css">
+    <link rel="stylesheet" href="vendor/jquery-ui.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>delete module.exports</script>
+    <script src="vendor/jquery-3.2.0.js"></script>
+    <script src="vendor/jquery-ui.js"></script>
+    <!--<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>-->
+    <script src="vendor/bootstrap.js"></script>
+
+  </head>
+  <body>
+  <div class="lmask">
+  <div class="col-xs-6" id="fileList">
+          <table class="table table-hover" id="fileListTable">
+              <thead>
+              <tr>
+                  <th colspan="2" id="currPath">/</th>
+              </tr>
+              <tr>
+                  <th class="sort-head cursor-pointer" data-sort="folder">Name</th>
+                  <th class="sort-head cursor-pointer" data-sort="size">Size</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!--<tr class="dir previous" data-dir-name="..">-->
+                  <!--<td colspan="2"><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>..</td>-->
+              <!--</tr>-->
+              <!--<tr class="dir">-->
+                  <!--<td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>test dir</td>-->
+                  <!--<td>1234</td>-->
+              <!--</tr>-->
+              <!--<tr class="file">-->
+                  <!--<td><span class="glyphicon glyphicon-file icon"></span>test file</td>-->
+                  <!--<td>1234</td>-->
+              <!--</tr>-->
+
+              <tr>
+                  <td colspan="2"><button id="scan_btn">Scan</button></td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+      <div class="col-xs-6" id="deleteList">
+          <table class="table table-hover" id="deleteListTable">
+              <thead>
+              <tr>
+                  <th colspan="2" class="col-md-12"><span class="glyphicon glyphicon-trash icon"></span>Delete files</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <!--<tr class="dir">-->
+                  <!--<td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>test dir</td>-->
+              <!--</tr>-->
+              <!--<tr class="file">-->
+                  <!--<td><span class="glyphicon glyphicon-file icon"></span>test file</td>-->
+              <!--</tr>-->
+
+              <tr>
+                  <td colspan="2"><Button>Delete</Button></td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+
+  </div>
+
+    <div id="target"></div>
+
+  </body>
+
+  <script id="file-list-template" type="x-tmpl-mustache">
+    <table class="table table-hover" id="fileListTable">
+      <thead>
+      <tr>
+          <th colspan="2" id="currPath">{{path}}</th>
+      </tr>
+      <tr>
+          <th class="sort-head cursor-pointer" data-sort="folder">Name</th>
+          <th class="sort-head cursor-pointer" data-sort="size">Size</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="dir previous" data-dir-name="..">
+          <td colspan="2"><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>..</td>
+      </tr>
+      {{#files}}
+          {{#isDir}}
+              <tr class="dir" data-dir-name="{{name}}">
+                  <td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>{{name}}</td>
+                  <td>{{formatSize}}</td>
+              </tr>
+          {{/isDir}}
+
+          {{^isDir}}
+          <tr class="file">
+              <td><span class="glyphicon glyphicon-file icon"></span>{{name}}</td>
+              <td>{{formatSize}}</td>
+          </tr>
+          {{/isDir}}
+
+      {{/files}}
+
+      </tbody>
+    </table>
+
+  </script>
+
+  <script id="delete-list-template" type="x-tmpl-mustache">
+      <table class="table table-hover" id="deleteListTable">
+          <thead>
+          <tr>
+          <th colspan="2" class="col-md-12"><span class="glyphicon glyphicon-trash icon"></span>Delete files</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {{#files}}
+          {{#isDir}}
+              <tr class="dir" data-path="{{path}}">
+                  <td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>{{name}}</td>
+                  <td>{{formatSize}}</td>
+              </tr>
+          {{/isDir}}
+
+          {{^isDir}}
+          <tr class="file" data-path="{{path}}">
+              <td><span class="glyphicon glyphicon-file icon"></span>{{name}}</td>
+              <td>{{formatSize}}</td>
+          </tr>
+          {{/isDir}}
+
+      {{/files}}
+
+      <tr>
+      <td colspan="2"><Button>Delete</Button></td>
+          </tr>
+          </tbody>
+          </table>
+  </script>
+
+  <script src="vendor/loadingoverlay.min.js"></script>
+  <script>
+
+    // You can also require other files to run in this process
+    require('./js/main.js')
+  </script>
+
+
+</html>
