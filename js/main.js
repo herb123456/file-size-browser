@@ -6,7 +6,7 @@ window.deleteListTemplate = "#delete-list-template";
 
 $(function (){
 
-    let scanDir = "/Users/herb/Desktop/Projects/test";
+    let scanDir = "/";
 
     let fileList = $("#fileList");
     let delList = $("#deleteList");
@@ -31,11 +31,13 @@ $(function (){
     // scan button
     $("#scan_btn").on("click", function (){
         $.LoadingOverlay("show");
+        let $btn = $(this).button('loading');
 
         fileReader.start(function (data){
             render.render("#fileList", fileListTemplate, data);
 
             $.LoadingOverlay("hide");
+            $btn.button("reset");
         });
         //
         // console.log(new Date());
@@ -106,6 +108,9 @@ $(function (){
 
     // delete files
     delList.on("click", "#delBtn", function (){
+        if (!deleteFilesData["files"] || deleteFilesData["files"].length === 0) {
+            return;
+        }
         let $btn = $(this).button('loading');
         let modal = $("#delConfirmModal");
         modal.modal('toggle');
@@ -115,8 +120,14 @@ $(function (){
     });
 
     $("#confirmDelBtn").on("click", function (){
+        $.LoadingOverlay("show");
         delFiles.doDelete(function (errs){
             console.log(errs);
+            if (errs.length !== 0) {
+                // show alert
+                render.render("#delete-error-body", "#delete-error-template", {errors: errs});
+                $("#delErrorModal").modal("toggle");
+            }
 
             let delData = {
                 files: deleteFilesData["files"]
@@ -124,6 +135,7 @@ $(function (){
             render.render(delList, window.deleteListTemplate, delData);
 
             $("#delConfirmModal").modal("toggle");
+            $.LoadingOverlay("hide");
         });
     });
 

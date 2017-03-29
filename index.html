@@ -41,7 +41,7 @@
               <!--</tr>-->
 
               <tr>
-                  <td colspan="2"><button id="scan_btn">Scan</button></td>
+                  <td colspan="2"><button id="scan_btn" class="btn btn-sm btn-success" data-loading-text="Scanning...">Scan</button></td>
               </tr>
               </tbody>
           </table>
@@ -80,6 +80,20 @@
                   <div class="modal-footer">
                       <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">NO</button>
                       <button type="button" id="confirmDelBtn" class="btn brn-sm btn-danger">刪除</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="modal fade bs-example-modal-sm" id="delErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+
+                  <div class="modal-body" id="delete-error-body">
+
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">ok</button>
                   </div>
               </div>
           </div>
@@ -155,12 +169,19 @@
       {{/files}}
 
       <tr>
-      <td colspan="2"><Button id="delBtn">Delete</Button></td>
+      <td colspan="2"><Button id="delBtn" type="button" class="btn btn-danger btn-sm" data-loading-text="Deleting...">Delete</Button></td>
           </tr>
           </tbody>
           </table>
   </script>
 
+  <script id="delete-error-template" type="x-tmpl-mustache">
+      <ul>
+        {{#errors}}
+        <li>{{err}}</li>
+        {{/errors}}
+      </ul>
+  </script>
   <script src="vendor/loadingoverlay.min.js"></script>
   <script>
 

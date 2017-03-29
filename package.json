@@ -21,7 +21,8 @@
     "electron-packager": "^8.6.0"
   },
   "dependencies": {
-    "mustache": "^2.3.0",
-    "async": "^2.2.0"
+    "async": "^2.2.0",
+    "fs-extra": "^2.1.2",
+    "mustache": "^2.3.0"
   }
 }
