@@ -18,3 +18,11 @@ table {
 .cursor-pointer {
     cursor: pointer;
 }
+
+
+@media (min-width: 430px) {
+    .modal-xs {
+        width: 300px;
+        margin: 30px auto;
+    }
+}

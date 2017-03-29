@@ -63,10 +63,26 @@
               <!--</tr>-->
 
               <tr>
-                  <td colspan="2"><Button>Delete</Button></td>
+                  <td colspan="2"><Button id="delBtn" type="button" class="btn btn-danger btn-sm" data-loading-text="Deleting...">Delete</Button></td>
               </tr>
               </tbody>
           </table>
+      </div>
+
+
+      <div class="modal fade bs-example-modal-sm" id="delConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-xs" role="document">
+              <div class="modal-content">
+
+                  <div class="modal-body">
+                      確定要刪除嗎?
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">NO</button>
+                      <button type="button" id="confirmDelBtn" class="btn brn-sm btn-danger">刪除</button>
+                  </div>
+              </div>
+          </div>
       </div>
 
   </div>
@@ -139,7 +155,7 @@
       {{/files}}
 
       <tr>
-      <td colspan="2"><Button>Delete</Button></td>
+      <td colspan="2"><Button id="delBtn">Delete</Button></td>
           </tr>
           </tbody>
           </table>
