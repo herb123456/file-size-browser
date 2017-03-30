@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>FindFat</title>
+    <title>FindFat - Please select drive.</title>
+
     <link rel="stylesheet" href="vendor/bootstrap-3.3.7.css">
     <link rel="stylesheet" href="vendor/jquery-ui.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
 
     <script>delete module.exports</script>
     <script src="vendor/jquery-3.2.0.js"></script>
@@ -13,181 +14,51 @@
     <!--<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>-->
     <script src="vendor/bootstrap.js"></script>
 
-  </head>
-  <body>
-  <div class="lmask">
-  <div class="col-xs-6" id="fileList">
-          <table class="table table-hover" id="fileListTable">
-              <thead>
-              <tr>
-                  <th colspan="2" id="currPath">/</th>
-              </tr>
-              <tr>
-                  <th class="sort-head cursor-pointer" data-sort="folder">Name</th>
-                  <th class="sort-head cursor-pointer" data-sort="size">Size</th>
-              </tr>
-              </thead>
-              <tbody>
-              <!--<tr class="dir previous" data-dir-name="..">-->
-                  <!--<td colspan="2"><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>..</td>-->
-              <!--</tr>-->
-              <!--<tr class="dir">-->
-                  <!--<td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>test dir</td>-->
-                  <!--<td>1234</td>-->
-              <!--</tr>-->
-              <!--<tr class="file">-->
-                  <!--<td><span class="glyphicon glyphicon-file icon"></span>test file</td>-->
-                  <!--<td>1234</td>-->
-              <!--</tr>-->
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row drive-row vertical-align">
 
-              <tr>
-                  <td colspan="2"><button id="scan_btn" class="btn btn-sm btn-success" data-loading-text="Scanning...">Scan</button></td>
-              </tr>
-              </tbody>
-          </table>
-      </div>
-      <div class="col-xs-6" id="deleteList">
-          <table class="table table-hover" id="deleteListTable">
-              <thead>
-              <tr>
-                  <th colspan="2" class="col-md-12"><span class="glyphicon glyphicon-trash icon"></span>Delete files</th>
-              </tr>
-              </thead>
+        <div class="col-xs-3">
+            <img src="images/Hard-Drive-icon-128.png" alt="" class="center hard-drive-icon">
 
-              <tbody>
-              <!--<tr class="dir">-->
-                  <!--<td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>test dir</td>-->
-              <!--</tr>-->
-              <!--<tr class="file">-->
-                  <!--<td><span class="glyphicon glyphicon-file icon"></span>test file</td>-->
-              <!--</tr>-->
+                <div class="drive-name">
+                    <div>
+                        MacOSX
+                    </div>
+                    <div>
+                        12GB / 128GB
+                    </div>
+                </div>
 
-              <tr>
-                  <td colspan="2"><Button id="delBtn" type="button" class="btn btn-danger btn-sm" data-loading-text="Deleting...">Delete</Button></td>
-              </tr>
-              </tbody>
-          </table>
-      </div>
+        </div>
+
+        <div class="col-xs-6 col-xs-offset-1 progress-col">
+                    <div class="progress">
+                        <div class="progress-bar " role="progressbar" aria-valuenow="70"
+                             aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width:70%">
+                            70% Used
+                        </div>
+                    </div>
 
 
-      <div class="modal fade bs-example-modal-sm" id="delConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog modal-xs" role="document">
-              <div class="modal-content">
+        </div>
 
-                  <div class="modal-body">
-                      確定要刪除嗎?
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">NO</button>
-                      <button type="button" id="confirmDelBtn" class="btn brn-sm btn-danger">刪除</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="modal fade bs-example-modal-sm" id="delErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-
-                  <div class="modal-body" id="delete-error-body">
-
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">ok</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-  </div>
-
-    <div id="target"></div>
-
-  </body>
-
-  <script id="file-list-template" type="x-tmpl-mustache">
-    <table class="table table-hover" id="fileListTable">
-      <thead>
-      <tr>
-          <th colspan="2" id="currPath">{{path}}</th>
-      </tr>
-      <tr>
-          <th class="sort-head cursor-pointer" data-sort="folder">Name</th>
-          <th class="sort-head cursor-pointer" data-sort="size">Size</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="dir previous" data-dir-name="..">
-          <td colspan="2"><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>..</td>
-      </tr>
-      {{#files}}
-          {{#isDir}}
-              <tr class="dir" data-dir-name="{{name}}">
-                  <td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>{{name}}</td>
-                  <td>{{formatSize}}</td>
-              </tr>
-          {{/isDir}}
-
-          {{^isDir}}
-          <tr class="file">
-              <td><span class="glyphicon glyphicon-file icon"></span>{{name}}</td>
-              <td>{{formatSize}}</td>
-          </tr>
-          {{/isDir}}
-
-      {{/files}}
-
-      </tbody>
-    </table>
-
-  </script>
-
-  <script id="delete-list-template" type="x-tmpl-mustache">
-      <table class="table table-hover" id="deleteListTable">
-          <thead>
-          <tr>
-          <th colspan="2" class="col-md-12"><span class="glyphicon glyphicon-trash icon"></span>Delete files</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      {{#files}}
-          {{#isDir}}
-              <tr class="dir" data-path="{{path}}">
-                  <td><span class="glyphicon glyphicon-folder-open icon" aria-hidden="true"></span>{{name}}</td>
-                  <td>{{formatSize}}</td>
-              </tr>
-          {{/isDir}}
-
-          {{^isDir}}
-          <tr class="file" data-path="{{path}}">
-              <td><span class="glyphicon glyphicon-file icon"></span>{{name}}</td>
-              <td>{{formatSize}}</td>
-          </tr>
-          {{/isDir}}
-
-      {{/files}}
-
-      <tr>
-      <td colspan="2"><Button id="delBtn" type="button" class="btn btn-danger btn-sm" data-loading-text="Deleting...">Delete</Button></td>
-          </tr>
-          </tbody>
-          </table>
-  </script>
-
-  <script id="delete-error-template" type="x-tmpl-mustache">
-      <ul>
-        {{#errors}}
-        <li>{{err}}</li>
-        {{/errors}}
-      </ul>
-  </script>
-  <script src="vendor/loadingoverlay.min.js"></script>
-  <script>
-
-    // You can also require other files to run in this process
-    require('./js/main.js')
-  </script>
+        <div class="col-xs-2">
+            <div class="drive-col">
+                <div class="drive-content">
+                    <button class="btn btn-scan">掃描</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+</div>
+
+
+<script>
+    require("./js/index")
+</script>
+</body>
 </html>

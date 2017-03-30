@@ -1,0 +1,141 @@
+.text-right {
+    text-align: right;
+}
+
+.hard-drive-icon {
+    height: 60px;
+}
+
+.btn-scan {
+    color: #fff;
+    background-color: #42adf4;
+    border-color: #34a0e2;
+}
+.btn-scan:focus,
+.btn-scan.focus {
+    color: #fff;
+    background-color: #3991cc;
+    border-color: #235d84;
+}
+.btn-scan:hover {
+    color: #fff;
+    background-color: #3991cc;
+    border-color: #235d84;
+}
+.btn-scan:active,
+.btn-scan.active,
+.open > .dropdown-toggle.btn-scan {
+    color: #fff;
+    background-color: #3991cc;
+    border-color: #235d84;
+}
+.btn-scan:active:hover,
+.btn-scan.active:hover,
+.open > .dropdown-toggle.btn-scan:hover,
+.btn-scan:active:focus,
+.btn-scan.active:focus,
+.open > .dropdown-toggle.btn-scan:focus,
+.btn-scan:active.focus,
+.btn-scan.active.focus,
+.open > .dropdown-toggle.btn-scan.focus {
+    color: #fff;
+    background-color: #3991cc;
+    border-color: #235d84;
+}
+.btn-scan:active,
+.btn-scan.active,
+.open > .dropdown-toggle.btn-scan {
+    background-image: none;
+}
+
+.btn-scan[disabled],
+.btn-scan.disabled,
+.btn-scan.disabled:hover,
+.btn-scan[disabled]:hover,
+fieldset[disabled] .btn-scan:hover,
+.btn-scan.disabled:focus,
+.btn-scan[disabled]:focus,
+fieldset[disabled] .btn-scan:focus,
+.btn-scan.disabled.focus,
+.btn-scan[disabled].focus,
+fieldset[disabled] .btn-scan.focus {
+    background-color: #6a9fc4;
+    border-color: #2e6da4;
+}
+.btn-scan .badge {
+    color: #337ab7;
+    background-color: #fff;
+}
+
+.drive-row {
+    margin-top: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.drive-row > .col-xs-3:first-child {
+    margin-left: 10px;
+}
+
+.drive-name {
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+.drive-name div:first-child {
+    margin-bottom: 2px;
+}
+
+.drive-col {
+    /*position: relative;*/
+    /*height: 100px;*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+}
+
+.drive-col > .drive-content {
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*left: 50%;*/
+    /*height: 50%;*/
+    /*width: 100%;*/
+    /*margin: auto;*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+}
+
+.center {
+    display: block;
+    margin: 0 auto;
+}
+
+.progress-col {
+    margin-top: 15px;
+}
+
+.vertical-align {
+    display: flex;
+    flex-direction: row;
+}
+
+.vertical-align > [class^="col-"],
+.vertical-align > [class*=" col-"] {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Optional, to align inner items
+                              horizontally inside the column */
+}
+
+/**
+ *  Do NOT include this part into your stylesheet.
+ *  "flex: 1" or "flex-grow: 1" is added to make the inner div
+ *  - Which is also a flex-item - take up all the horizontal space
+ *  available space inside the flex container (.col-* elements)
+ */
+.vertical-align > [class^="col-"] > div,
+.vertical-align > [class*=" col-"] > div {
+    /* flex: 1; */
+    flex-grow: 1;
+}

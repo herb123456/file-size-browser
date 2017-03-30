@@ -6,7 +6,7 @@ window.deleteListTemplate = "#delete-list-template";
 
 $(function (){
 
-    let scanDir = "/";
+    let scanDir = "/Users/herb/Desktop/Projects/test";
 
     let fileList = $("#fileList");
     let delList = $("#deleteList");
