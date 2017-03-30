@@ -15,7 +15,6 @@
 
   </head>
   <body>
-  <div class="lmask">
   <div class="col-xs-6" id="fileList">
           <table class="table table-hover" id="fileListTable">
               <thead>
@@ -98,14 +97,9 @@
               </div>
           </div>
       </div>
-
-  </div>
-
-    <div id="target"></div>
-
   </body>
 
-  <script id="file-list-template" type="x-tmpl-mustache">
+  <script id="file-list-template" type="text/x-handlebars-template">
     <table class="table table-hover" id="fileListTable">
       <thead>
       <tr>
@@ -142,7 +136,7 @@
 
   </script>
 
-  <script id="delete-list-template" type="x-tmpl-mustache">
+  <script id="delete-list-template" type="text/x-handlebars-template">
       <table class="table table-hover" id="deleteListTable">
           <thead>
           <tr>
@@ -175,7 +169,7 @@
           </table>
   </script>
 
-  <script id="delete-error-template" type="x-tmpl-mustache">
+  <script id="delete-error-template" type="text/x-handlebars-template">
       <ul>
         {{#errors}}
         <li>{{err}}</li>
