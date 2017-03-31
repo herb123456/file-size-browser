@@ -13,7 +13,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 570, height: 300})
+  mainWindow = new BrowserWindow({width: 1000, height: 300})
 
   // and load the filelist.html of the app.
   mainWindow.loadURL(url.format({

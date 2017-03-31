@@ -122,3 +122,6 @@ fabric.properties
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/node,webstorm
+
+.DS_Store
+FindFat-darwin-x64/

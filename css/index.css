@@ -78,7 +78,7 @@ fieldset[disabled] .btn-scan.focus {
 
 .drive-name {
     text-align: center;
-    margin: 10px 0 10px 0;
+    margin: 10px 0 10px 0px;
 }
 
 .drive-name div:first-child {

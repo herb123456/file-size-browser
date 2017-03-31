@@ -1,51 +1,44 @@
 $(function () {
     /**
-     * 1. Get disk info using nodejs-disks
-     * 2. Get disk name using diskutil command
-     * 3. List all disk
+     * 1. Get boot drive using bless --info --getBoot
+     * 2. Get disk info using nodejs-disks
+     * 3. Get disk name using diskutil command
+     * 4. List all disk
      */
-    let diskInfo = [];
 
-    const njds = require('nodejs-disks');
-    njds.drives(
-        function (err, drives) {
-            njds.drivesDetail(
-                drives,
-                function (err, data) {
-                    const async = require("async");
-                    let getDiskInfo = function (disk, callback) {
-                        let spawn = require("child_process").spawn;
-                        let drive_split = disk.drive.split("/");
-                        let drive_name = drive_split[drive_split.length - 1];
-                        // console.log(drive_name);
-                        let command = "diskutil list | grep "+ drive_name;
-                        let diskutil = spawn(command, [], { shell: true });
-                        diskutil.stdout.on ('data', (data) => {
-                            let info = data.toString ().split(" ").filter(function (n) {return n !== ""});
-                            let name = "";
-                            if (info.length !== 6) {
-                                name = "Untitled";
-                            } else {
-                                name = info[2];
-                            }
+    $.LoadingOverlay("show");
+    let Render = require("./renderer");
+    let render = new Render();
 
-                            diskInfo.push({
-                                total: disk.total,
-                                used: disk.used,
-                                usedPer: disk.usedPer,
-                                name: name
-                            });
+    // get boot drive
+    let command = "/usr/sbin/bless --info --getBoot";
+    let bootCmd = require("child_process").spawn(command, [], { shell: true });
+    bootCmd.stdout.on("data", function (data){
+        // get disk info
+        let GetDiskInfo = require("./diskInfo");
+        let getDiskInfo = new GetDiskInfo(data.toString());
+        getDiskInfo.get(function (diskInfo){
+            data = {
+                disks: diskInfo
+            };
+            render.render("#disk-container", "#disk-content-template", data);
+            $.LoadingOverlay("hide");
+        });
+    });
 
-                            callback();
-                        });
-                    };
-                    async.each(data, getDiskInfo, function (err){
-                        // console.log(err);
-                        console.log(diskInfo);
+    $("#disk-container").on("click", ".btn-scan", function () {
+        const { remote } = require('electron');
+        const path = require('path');
+        const url = require('url');
 
-                    });
-                }
-            );
-        }
-    )
+        let pathData = $(this).data("path");
+        window.searchPath = pathData;
+
+        console.log(`file://${__dirname}/../filelist.html?id=${pathData}`);
+
+        remote.getCurrentWindow().loadURL(`file://${__dirname}/../filelist.html?path=${pathData}`);
+    })
+
+
+
 });
