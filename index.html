@@ -16,11 +16,7 @@
 
 </head>
 <body>
-<div class="container-fluid" id="disk-container">
-
-
-
-</div>
+<div class="container-fluid" id="disk-container"></div>
 
 <script id="disk-content-template" type="text/x-handlebars-template">
     {{#each disks}}
@@ -60,6 +56,12 @@
         </div>
     </div>
     {{/each}}
+
+    <div class="row custom-path-row">
+        <button type="button" class="btn btn-default btn-sm" id="custom-path-btn">選擇要掃描的路徑</button>
+        <label for="custom-path-btn" id="custom-path-label"></label>
+        <button class="btn btn-scan" data-path="" style="display: none;" id="custom-path-scan-btn">掃描</button>
+    </div>
 </script>
 
 <script src="vendor/loadingoverlay.min.js"></script>

@@ -39,6 +39,19 @@ $(function () {
         remote.getCurrentWindow().loadURL(`file://${__dirname}/../filelist.html?path=${pathData}`);
     })
 
+    // custom path btn
+    $("#disk-container").on("click", "#custom-path-btn", function (){
+        let { remote } = require('electron');
+        let dialog = remote.require('electron').dialog;
+
+        let path = dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+
+        $("#custom-path-label").text(path[0]);
+
+        $("#custom-path-scan-btn").data("path", path[0]).fadeIn();
+    });
 
 
 });
