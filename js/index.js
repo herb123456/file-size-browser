@@ -23,6 +23,11 @@ $(function () {
             };
             render.render("#disk-container", "#disk-content-template", data);
             $.LoadingOverlay("hide");
+
+            // progress bar animate
+            $('.progress .progress-bar').css("width",function() {
+                return $(this).attr("aria-valuenow") + "%";
+            });
         });
     });
 
