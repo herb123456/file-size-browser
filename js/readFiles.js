@@ -2,6 +2,15 @@ class ReadFiles {
     constructor (path) {
         this.path = path;
         this.allFiles = require("./allFilesData");
+        this.excludeDir = [
+            "Volumes",
+            "System",
+            "private",
+            ".Trashes",
+            ".Spotlight-V100",
+            ".fseventsd",
+            ".DocumentRevisions-V100"
+        ];
     }
 
     start (callback) {
@@ -9,7 +18,10 @@ class ReadFiles {
         let File = require("./File");
 
         let spawn = require("child_process").spawn;
-        let du = spawn('du', ['-akH', this.path]);
+        let command = "du -akH -I " + this.excludeDir.join(" -I ") + " " + this.path;
+        console.log(command);
+        // let du = spawn('du', ['-akH', '-I /Volumes', this.path]);
+        let du = spawn(command, [], { shell: true });
 
         let rl = require('readline');
         let lineReader = rl.createInterface(du.stdout, du.stdin);
@@ -33,7 +45,7 @@ class ReadFiles {
         let errHandler = function (data) {
             let datas = data.split(":");
 
-            // console.log(data, datas);
+            // console.log(datas);
 
             var Sudoer = require('electron-sudo').default;
             var options = {name: 'electron sudo application'},

@@ -6,7 +6,9 @@ window.deleteListTemplate = "#delete-list-template";
 
 $(function (){
 
-    let scanDir = "/Users/herb/Desktop/Projects/test";
+    let queryDict = {};
+    location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
+    let scanDir = queryDict.path;
 
     let fileList = $("#fileList");
     let delList = $("#deleteList");
@@ -24,37 +26,51 @@ $(function (){
     let delFiles = new DelFiles();
     let deleteFilesData = require("./deleteFilesData");
 
+
+
+
+
     $(render).on("rendered", function () {
         madeDraggable.made();
     });
 
-    // scan button
-    $("#scan_btn").on("click", function (){
-        $.LoadingOverlay("show");
-        let $btn = $(this).button('loading');
+    $.LoadingOverlay("show");
+    // let $btn = $(this).button('loading');
 
-        fileReader.start(function (data){
-            render.render("#fileList", fileListTemplate, data);
+    fileReader.start(function (data){
+        render.render("#fileList", fileListTemplate, data);
 
-            $.LoadingOverlay("hide");
-            $btn.button("reset");
-        });
-        //
-        // console.log(new Date());
-        // let du = require("./du");
-        // du("/", function (err, size){
-        //     console.log("callback: ", err);
-        //     console.log(new Date());
-        // });
-
-        // let async = require("async");
-        // let fs = require("fs");
-        // async.map(['/Users/herb/Desktop/Projects','file2','/Users/herb/Desktop/Projects/test'], fs.stat, function(err, results) {
-        //     console.log(err, results);
-        // });
-
-        console.log("clicked");
+        $.LoadingOverlay("hide");
+        // $btn.button("reset");
     });
+
+    // scan button
+    // $("#scan_btn").on("click", function (){
+    //     $.LoadingOverlay("show");
+    //     let $btn = $(this).button('loading');
+    //
+    //     fileReader.start(function (data){
+    //         render.render("#fileList", fileListTemplate, data);
+    //
+    //         $.LoadingOverlay("hide");
+    //         $btn.button("reset");
+    //     });
+    //     //
+    //     // console.log(new Date());
+    //     // let du = require("./du");
+    //     // du("/", function (err, size){
+    //     //     console.log("callback: ", err);
+    //     //     console.log(new Date());
+    //     // });
+    //
+    //     // let async = require("async");
+    //     // let fs = require("fs");
+    //     // async.map(['/Users/herb/Desktop/Projects','file2','/Users/herb/Desktop/Projects/test'], fs.stat, function(err, results) {
+    //     //     console.log(err, results);
+    //     // });
+    //
+    //     console.log("clicked");
+    // });
 
     // change dir
     fileList.on("click", "tr.dir", function (){
