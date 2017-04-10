@@ -23,6 +23,10 @@ class GetDiskInfo {
     }
 
     driveDetailCallback (err, data, callback) {
+        if (err) {
+            console.log(err);
+        }
+
         const async = require("async");
         let getDiskInfo = function (disk, callback) {
             let spawn = require("child_process").spawn;
@@ -42,7 +46,7 @@ class GetDiskInfo {
                 }
 
                 console.log(disk);
-                if (disk.drive.trim() === this.boot_drive.trim()) {
+                if (disk.drive.trim() === this.boot_drive.trim() || this.diskInfo[0] === "") {
                     this.diskInfo[0] = {
                         total: disk.total,
                         used: disk.used,

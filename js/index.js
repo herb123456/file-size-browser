@@ -13,22 +13,30 @@ $(function () {
     // get boot drive
     let command = "/usr/sbin/bless --info --getBoot";
     let bootCmd = require("child_process").spawn(command, [], { shell: true });
+    let getDiskCallback = function (diskInfo){
+        let data = {
+            disks: diskInfo
+        };
+        render.render("#disk-container", "#disk-content-template", data);
+        $.LoadingOverlay("hide");
+
+        // progress bar animate
+        $('.progress .progress-bar').css("width",function() {
+            return $(this).attr("aria-valuenow") + "%";
+        });
+    };
     bootCmd.stdout.on("data", function (data){
         // get disk info
         let GetDiskInfo = require("./diskInfo");
         let getDiskInfo = new GetDiskInfo(data.toString());
-        getDiskInfo.get(function (diskInfo){
-            data = {
-                disks: diskInfo
-            };
-            render.render("#disk-container", "#disk-content-template", data);
-            $.LoadingOverlay("hide");
+        getDiskInfo.get(getDiskCallback);
+    });
 
-            // progress bar animate
-            $('.progress .progress-bar').css("width",function() {
-                return $(this).attr("aria-valuenow") + "%";
-            });
-        });
+    bootCmd.stderr.on("data", function (data) {
+        // get disk info
+        let GetDiskInfo = require("./diskInfo");
+        let getDiskInfo = new GetDiskInfo("");
+        getDiskInfo.get(getDiskCallback);
     });
 
     $("#disk-container").on("click", ".btn-scan", function () {
